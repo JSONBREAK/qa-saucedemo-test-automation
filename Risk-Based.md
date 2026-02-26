@@ -1,4 +1,4 @@
-## Risk-Based Test Plan: SauceDemo (ตัวอย่าง Junior+)
+## Risk-Based Test Plan: SauceDemo 
 
 ### 1. Business Overview
 SauceDemo เป็นเว็บ E-commerce สำหรับทดลองอัตโนมัติ Flow ธุรกิจหลักคือ "ลูกค้าซื้อของสำเร็จ"
