@@ -1,11 +1,15 @@
+import { error } from "node:console";
+
 export const users = {
   standard: {
     username: 'standard_user',
     password: 'secret_sauce',
+    
   },
   locked: {
     username: 'locked_out_user',
     password: 'secret_sauce',
+    errorMessage: 'Epic sadface: Sorry, this user has been locked out.',
   },
   problem: {
     username: 'problem_user',
