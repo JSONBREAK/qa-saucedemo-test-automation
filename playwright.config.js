@@ -16,7 +16,13 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
+      name: 'regression',
+      testDir: './tests/regression',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'smoke',
+      testDir: './tests/smoke',
       use: { ...devices['Desktop Chrome'] },
     },
   ],

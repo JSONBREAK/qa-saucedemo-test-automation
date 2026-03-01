@@ -1,14 +1,19 @@
-name: Playwright Tests
+name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    branches: [main, develop]
+  push:
     branches: [main]
 
 jobs:
-  test:
+  fast-validation:
+    timeout-minutes: 15
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    name: PR - Fast Validation (Smoke Tests)
+    env:
+      CI: true
 
     steps:
       - name: Checkout code
@@ -18,19 +23,54 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run smoke tests
+        run: npx playwright test --project=smoke --workers=2
 
       - name: Upload HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-report-smoke
+          path: playwright-report
+
+  full-coverage:
+    timeout-minutes: 30
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    name: Main - Full Coverage (All Tests)
+    env:
+      CI: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run all tests
+        run: npx playwright test --workers=4
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-full
           path: playwright-report

@@ -1,7 +1,7 @@
 import { test } from '@playwright/test'
 import { LoginPage } from '../../pages/login.page.js'
 import { InventoryPage } from '../../pages/inventory.page.js'
-import { users } from '../../test-data/users.js'
+import { users } from '../../fixtures/users.js'
 
 const { standard } = users;
 

@@ -3,7 +3,7 @@ import { InventoryPage } from '../../pages/inventory.page.js'
 import { CartPage } from '../../pages/cart.page.js'
 import { CheckoutPage } from '../../pages/checkout.page.js'
 import { test } from '@playwright/test'
-import { users } from '../../test-data/users.js'
+import { users } from '../../fixtures/users.js'
 
 const { standard } = users;
 
